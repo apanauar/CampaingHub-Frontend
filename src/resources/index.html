@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Hub - Ingresar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Página Login: ruta "/" -->
+    <div class="auth-page">
+        <div class="auth-container">
+            <a href="index.html" class="app-logo"><i class="fas fa-bullhorn"></i><span>Campaign Hub</span></a>
+
+            <div class="card">
+                <h1>Ingresar</h1>
+                <p class="texto-suave">Gestioná las campañas de tus clientes en un solo lugar.</p>
+
+                <!-- Error que devuelve la API (se muestra solo si hay error) -->
+                <div class="alerta alerta-error"><i class="fas fa-circle-exclamation"></i> Credenciales inválidas</div>
+
+                <form>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="tu@email.com">
+                        <span class="error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" placeholder="••••••••">
+                        <span class="error"></span>
+                    </div>
+
+                    <!-- Deshabilitado mientras email o contraseña estén vacíos -->
+                    <button type="submit" class="btn btn-block" disabled>Ingresar</button>
+                    <!-- Estado cargando: -->
+                    <!-- <button class="btn btn-block" disabled><i class="fas fa-spinner fa-spin"></i> Ingresando...</button> -->
+                </form>
+            </div>
+
+            <p class="auth-link">¿No tenés cuenta? <a href="registro.html">Registrate</a></p>
+        </div>
+    </div>
+</body>
+
+</html>

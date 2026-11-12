@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Hub - Detalle de campaña</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Componente Contenedor -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="dashboard.html" class="app-logo"><i class="fas fa-bullhorn"></i><span>Campaign Hub</span></a>
+            <nav class="nav">
+                <a href="dashboard.html" class="active"><i class="fas fa-table-columns"></i> Mis campañas</a>
+            </nav>
+            <div class="user-box">
+                <span class="user-name">Marketer Demo</span>
+                <span class="badge badge-premium">premium</span>
+                <button class="logout-btn" onclick="window.location.href='index.html'" title="Cerrar sesión">
+                    <i class="fas fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Página CampaniaDetalle: ruta "/campanias/:id" ===== -->
+    <div class="container">
+        <p style="margin-bottom: 1rem"><a href="dashboard.html"><i class="fas fa-arrow-left"></i> Volver a mis campañas</a></p>
+
+        <div class="page-title">
+            <div>
+                <h1>Lanzamiento de verano <span class="badge estado-activa">activa</span></h1>
+                <p>Visual Shop · Lanzamiento</p>
+            </div>
+        </div>
+
+        <!-- Datos de la campaña -->
+        <div class="card">
+            <div class="datos">
+                <div class="dato"><span>Presupuesto</span><strong>USD 1.500</strong></div>
+                <div class="dato"><span>Inicio</span><strong>01/12/2026</strong></div>
+                <div class="dato"><span>Fin</span><strong>31/12/2026</strong></div>
+                <div class="dato"><span>Canales</span>
+                    <div class="canales"><span class="canal">instagram</span><span class="canal">tiktok</span></div>
+                </div>
+                <div class="dato" style="grid-column: 1 / -1"><span>Objetivo</span><strong>Aumentar las ventas de la temporada de verano</strong></div>
+            </div>
+        </div>
+
+        <div class="grid grid-2">
+            <!-- Componente BriefIA -->
+            <div class="card">
+                <h2><i class="fas fa-wand-magic-sparkles"></i> Brief con IA</h2>
+                <div class="brief">
+                    Lanzamiento de verano para Visual Shop enfocado en aumentar ventas. Público: familias de 25 a 45 años
+                    que renuevan su casa para la temporada. Mensaje clave: confort y precios de lanzamiento.
+                </div>
+                <ul class="ideas">
+                    <li><i class="fas fa-quote-left"></i>El verano empieza en tu living.</li>
+                    <li><i class="fas fa-quote-left"></i>Renová tu casa con precios de lanzamiento.</li>
+                    <li><i class="fas fa-quote-left"></i>Últimos días: envío gratis en todo el país.</li>
+                </ul>
+                <!-- Aviso si respondió el fallback: -->
+                <!-- <div class="alerta alerta-aviso"><i class="fas fa-triangle-exclamation"></i> La IA no está disponible: se generó un brief de plantilla.</div> -->
+                <p style="margin-top: 1rem">
+                    <button class="btn"><i class="fas fa-wand-magic-sparkles"></i> Generar brief</button>
+                    <!-- Cargando: <button class="btn" disabled><i class="fas fa-spinner fa-spin"></i> Generando...</button> -->
+                </p>
+            </div>
+
+            <!-- Componente Feriados -->
+            <div class="card">
+                <h2><i class="fas fa-calendar-day"></i> Feriados durante la campaña</h2>
+                <p class="texto-suave" style="margin-bottom: 0.8rem">Feriados de Uruguay entre las fechas de la campaña.</p>
+                <ul class="feriados">
+                    <li><span>Día de la Familia</span><strong>25/12/2026</strong></li>
+                </ul>
+                <!-- Sin feriados: <p class="vacio">No hay feriados en estas fechas.</p> -->
+                <p style="margin-top: 1rem">
+                    <button class="btn btn-secundario"><i class="fas fa-rotate"></i> Consultar feriados</button>
+                </p>
+            </div>
+        </div>
+
+        <!-- Componente Piezas (imágenes en Cloudinary) -->
+        <div class="card">
+            <h2><i class="fas fa-images"></i> Piezas de la campaña</h2>
+            <form class="subida">
+                <input type="file" accept="image/*">
+                <button type="submit" class="btn"><i class="fas fa-upload"></i> Subir</button>
+            </form>
+            <span class="error">El archivo debe ser una imagen</span>
+
+            <div class="piezas">
+                <div class="pieza">
+                    <img src="https://picsum.photos/seed/pieza1/300/200" alt="Pieza">
+                    <p>historia-verano.jpg</p>
+                </div>
+                <div class="pieza">
+                    <img src="https://picsum.photos/seed/pieza2/300/200" alt="Pieza">
+                    <p>post-feed-1.png</p>
+                </div>
+                <div class="pieza">
+                    <img src="https://picsum.photos/seed/pieza3/300/200" alt="Pieza">
+                    <p>banner-meta.jpg</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

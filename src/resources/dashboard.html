@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Hub - Mis campañas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- ===== Componente Contenedor: header + <Outlet /> ===== -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="dashboard.html" class="app-logo"><i class="fas fa-bullhorn"></i><span>Campaign Hub</span></a>
+            <nav class="nav">
+                <a href="dashboard.html" class="active"><i class="fas fa-table-columns"></i> Mis campañas</a>
+                <!-- Solo para el admin: -->
+                <a href="admin.html"><i class="fas fa-tags"></i> Tipos de campaña</a>
+            </nav>
+            <div class="user-box">
+                <span class="user-name">Marketer Demo</span>
+                <span class="badge badge-plus">plus</span>
+                <button class="logout-btn" onclick="window.location.href='index.html'" title="Cerrar sesión">
+                    <i class="fas fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Página Dashboard: ruta "/dashboard" ===== -->
+    <div class="container">
+        <div class="page-title">
+            <div>
+                <h1>Mis campañas</h1>
+                <p>Planificá, ejecutá y medí las campañas de tus clientes.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-3">
+            <!-- Componente InformeUso (plus: porcentaje / premium: cantidad) -->
+            <div class="card">
+                <h2><i class="fas fa-chart-pie"></i> Uso del plan</h2>
+                <div class="uso-numero">75% <small>usado</small></div>
+                <div class="barra">
+                    <div class="barra-relleno" style="width: 75%"></div>
+                </div>
+                <p class="texto-suave">3 de 4 campañas · te queda 1 disponible</p>
+                <!-- Versión premium:
+                <div class="uso-numero">12 <small>campañas</small></div>
+                <p class="texto-suave">Plan Premium · campañas ilimitadas</p> -->
+            </div>
+
+            <!-- Componente CambioPlan (solo si es plus) -->
+            <div class="card">
+                <h2><i class="fas fa-crown"></i> Pasate a Premium</h2>
+                <ul class="plan-beneficios">
+                    <li><i class="fas fa-check"></i>Campañas ilimitadas</li>
+                    <li><i class="fas fa-check"></i>Brief con IA para cada campaña</li>
+                    <li><i class="fas fa-check"></i>Sin perder tus campañas actuales</li>
+                </ul>
+                <button class="btn btn-premium btn-block"><i class="fas fa-crown"></i> Cambiar a Premium</button>
+            </div>
+
+            <!-- Componente Grafica -->
+            <div class="card">
+                <h2><i class="fas fa-chart-column"></i> Campañas por estado</h2>
+                <div class="chart-container">
+                    <canvas id="grafica"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Componente CampaniaForm (alta) — solo si el plan lo permite -->
+        <div class="card">
+            <h2><i class="fas fa-plus"></i> Nueva campaña</h2>
+
+            <!-- Si llegó al límite se muestra esto en lugar del formulario: -->
+            <!-- <div class="alerta alerta-aviso"><i class="fas fa-lock"></i> Llegaste al límite de 4 campañas del plan Plus. Pasate a Premium para crear más.</div> -->
+
+            <form>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" placeholder="Lanzamiento de verano">
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="cliente">Cliente</label>
+                        <input type="text" id="cliente" placeholder="Visual Shop">
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Tipo de campaña</label>
+                        <select id="tipo">
+                            <option value="">Elegí un tipo</option>
+                            <option>Lanzamiento</option>
+                            <option>Branding</option>
+                            <option>Performance</option>
+                        </select>
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="presupuesto">Presupuesto (USD)</label>
+                        <input type="number" id="presupuesto" placeholder="1500">
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaInicio">Fecha de inicio</label>
+                        <input type="date" id="fechaInicio">
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaFin">Fecha de fin</label>
+                        <input type="date" id="fechaFin" class="input-error">
+                        <span class="error">La fecha de fin no puede ser anterior a la de inicio</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Canales</label>
+                    <div class="checks">
+                        <label><input type="checkbox" checked> Instagram</label>
+                        <label><input type="checkbox" checked> TikTok</label>
+                        <label><input type="checkbox"> Meta Ads</label>
+                        <label><input type="checkbox"> Google Ads</label>
+                        <label><input type="checkbox"> LinkedIn</label>
+                        <label><input type="checkbox"> Email</label>
+                    </div>
+                    <span class="error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="objetivo">Objetivo</label>
+                    <textarea id="objetivo" rows="2" placeholder="Aumentar las ventas de la temporada"></textarea>
+                    <span class="error"></span>
+                </div>
+
+                <button type="submit" class="btn"><i class="fas fa-plus"></i> Crear campaña</button>
+            </form>
+        </div>
+
+        <!-- Componente Campanias (listado) -->
+        <div class="card">
+            <h2><i class="fas fa-list"></i> Campañas</h2>
+
+            <!-- Componente Filtros -->
+            <div class="filtros">
+                <div class="form-group">
+                    <label for="fEstado">Estado</label>
+                    <select id="fEstado">
+                        <option value="">Todos</option>
+                        <option>borrador</option>
+                        <option>activa</option>
+                        <option>pausada</option>
+                        <option>finalizada</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fCanal">Canal</label>
+                    <select id="fCanal">
+                        <option value="">Todos</option>
+                        <option>instagram</option>
+                        <option>tiktok</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fTipo">Tipo</label>
+                    <select id="fTipo">
+                        <option value="">Todos</option>
+                        <option>Lanzamiento</option>
+                    </select>
+                </div>
+                <button class="btn btn-secundario"><i class="fas fa-xmark"></i> Limpiar</button>
+            </div>
+
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th>Campaña</th>
+                        <th>Tipo</th>
+                        <th>Canales</th>
+                        <th>Fechas</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Componente Campania (una fila) -->
+                    <tr>
+                        <td>
+                            <a href="campania.html" class="campania-nombre">Lanzamiento de verano</a>
+                            <div class="texto-suave">Visual Shop · USD 1.500</div>
+                        </td>
+                        <td>Lanzamiento</td>
+                        <td>
+                            <div class="canales"><span class="canal">instagram</span><span class="canal">tiktok</span></div>
+                        </td>
+                        <td class="texto-suave">01/12 → 31/12</td>
+                        <td><span class="badge estado-activa">activa</span></td>
+                        <td>
+                            <div class="acciones">
+                                <button class="btn btn-icono" title="Editar"><i class="fas fa-pen"></i></button>
+                                <button class="btn btn-icono peligro" title="Eliminar"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Componente Campania en modo edición (inline) -->
+                    <tr class="editando">
+                        <td>
+                            <input type="text" value="Black Friday">
+                            <input type="text" value="Polyfom" style="margin-top: 0.3rem">
+                        </td>
+                        <td>Performance</td>
+                        <td>
+                            <div class="canales"><span class="canal">meta_ads</span></div>
+                        </td>
+                        <td>
+                            <input type="number" value="800" title="Presupuesto">
+                        </td>
+                        <td>
+                            <select>
+                                <option>borrador</option>
+                                <option selected>activa</option>
+                            </select>
+                        </td>
+                        <td>
+                            <div class="acciones">
+                                <button class="btn btn-icono exito" title="Guardar"><i class="fas fa-check"></i></button>
+                                <button class="btn btn-icono" title="Cancelar"><i class="fas fa-xmark"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <a href="campania.html" class="campania-nombre">Día de la madre</a>
+                            <div class="texto-suave">Bivo · USD 400</div>
+                        </td>
+                        <td>Branding</td>
+                        <td>
+                            <div class="canales"><span class="canal">instagram</span><span class="canal">email</span></div>
+                        </td>
+                        <td class="texto-suave">15/09 → 15/10</td>
+                        <td><span class="badge estado-borrador">borrador</span></td>
+                        <td>
+                            <div class="acciones">
+                                <button class="btn btn-icono" title="Editar"><i class="fas fa-pen"></i></button>
+                                <button class="btn btn-icono peligro" title="Eliminar"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Si no hay campañas: <p class="vacio">Todavía no creaste campañas.</p> -->
+
+            <div class="paginacion">
+                <button class="btn btn-secundario" disabled><i class="fas fa-chevron-left"></i></button>
+                <span>Página 1 de 1</span>
+                <button class="btn btn-secundario" disabled><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Solo para ver el mockup (en React se usa react-chartjs-2) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        new Chart(document.getElementById('grafica'), {
+            type: 'bar',
+            data: {
+                labels: ['borrador', 'activa', 'pausada', 'finalizada'],
+                datasets: [{
+                    label: 'Campañas',
+                    data: [1, 1, 0, 1],
+                    backgroundColor: ['#9ca3af', '#059669', '#d97706', '#1f2937'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+            }
+        });
+    </script>
+</body>
+
+</html>

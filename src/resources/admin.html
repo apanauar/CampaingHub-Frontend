@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Hub - Tipos de campaña</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Componente Contenedor (vista del admin) -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="admin.html" class="app-logo"><i class="fas fa-bullhorn"></i><span>Campaign Hub</span></a>
+            <nav class="nav">
+                <a href="admin.html" class="active"><i class="fas fa-tags"></i> Tipos de campaña</a>
+            </nav>
+            <div class="user-box">
+                <span class="user-name">Administrador</span>
+                <span class="badge badge-admin">admin</span>
+                <button class="logout-btn" onclick="window.location.href='index.html'" title="Cerrar sesión">
+                    <i class="fas fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Página AdminTipos: ruta "/admin/tipos" (solo rol admin) ===== -->
+    <div class="container">
+        <div class="page-title">
+            <div>
+                <h1>Tipos de campaña</h1>
+                <p>Las categorías que usan los marketers al crear sus campañas.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-2" style="grid-template-columns: 1fr 1.6fr">
+            <!-- Componente TipoForm -->
+            <div class="card">
+                <h2><i class="fas fa-plus"></i> Nuevo tipo</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" placeholder="Lanzamiento">
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" rows="3" placeholder="Campañas de lanzamiento de producto"></textarea>
+                        <span class="error"></span>
+                    </div>
+                    <button type="submit" class="btn btn-block" disabled>Crear tipo</button>
+                </form>
+            </div>
+
+            <!-- Componente Tipos (listado) -->
+            <div class="card">
+                <h2><i class="fas fa-tags"></i> Tipos existentes</h2>
+
+                <!-- Error de la API, ej. al borrar un tipo con campañas -->
+                <div class="alerta alerta-error"><i class="fas fa-circle-exclamation"></i> No se puede eliminar: hay 3 campaña(s) con este tipo</div>
+
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="campania-nombre">Lanzamiento</td>
+                            <td class="texto-suave">Campañas de lanzamiento de producto</td>
+                            <td>
+                                <div class="acciones">
+                                    <button class="btn btn-icono" title="Editar"><i class="fas fa-pen"></i></button>
+                                    <button class="btn btn-icono peligro" title="Eliminar"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="editando">
+                            <td><input type="text" value="Branding"></td>
+                            <td><input type="text" value="Posicionamiento de marca"></td>
+                            <td>
+                                <div class="acciones">
+                                    <button class="btn btn-icono exito" title="Guardar"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-icono" title="Cancelar"><i class="fas fa-xmark"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="campania-nombre">Performance</td>
+                            <td class="texto-suave">Campañas de conversión con pauta</td>
+                            <td>
+                                <div class="acciones">
+                                    <button class="btn btn-icono" title="Editar"><i class="fas fa-pen"></i></button>
+                                    <button class="btn btn-icono peligro" title="Eliminar"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
